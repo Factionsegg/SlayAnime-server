@@ -25,31 +25,30 @@ if (process.env.NODE_ENV === "development") {
 // Mount routers
 
 app.use("/api/v1/", animes);
-//app.use("/video", express.static(__dirname + "/uploads"));
+app.use("/video", express.static(__dirname + "/uploads"));
 
-app.get("/video", function (req, res) {
-  const range = req.headers.range;
-  if (!range) {
-    res.status(400).send("Requires Range header");
-    console.log("hiii");
-  } else {
-    const videoPath = __dirname + "/uploads/test.mp4";
-    const videoSize = fs.statSync(videoPath).size;
-    const CHUNK_SIZE = 10 ** 6;
-    const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-    const contentLength = end - start + 1;
-    const headers = {
-      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": contentLength,
-      "Content-Type": "video/mp4",
-    };
-    res.writeHead(206, headers);
-    const videoStream = fs.createReadStream(videoPath, { start, end });
-    videoStream.pipe(res);
-  }
-});
+// app.get("/video", function (req, res) {
+//   const range = req.headers.range;
+//   if (!range) {
+//     res.status(400).send("Requires Range header");
+//   } else {
+//     const videoPath = "test.mp4";
+//     const videoSize = fs.statSync(videoPath).size;
+//     const CHUNK_SIZE = 10 ** 6;
+//     const start = Number(range.replace(/\D/g, ""));
+//     const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+//     const contentLength = end - start + 1;
+//     const headers = {
+//       "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+//       "Accept-Ranges": "bytes",
+//       "Content-Length": contentLength,
+//       "Content-Type": "video/mp4",
+//     };
+//     res.writeHead(206, headers);
+//     const videoStream = fs.createReadStream(videoPath, { start, end });
+//     videoStream.pipe(res);
+//   }
+// });
 
 app.use(errHandler);
 
