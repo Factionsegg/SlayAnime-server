@@ -31,8 +31,9 @@ app.get("/video", function (req, res) {
   const range = req.headers.range;
   if (!range) {
     res.status(400).send("Requires Range header");
+    console.log("hiii");
   } else {
-    const videoPath = __dirname + "uploads/test.mp4";
+    const videoPath = __dirname + "/uploads/test.mp4";
     const videoSize = fs.statSync(videoPath).size;
     const CHUNK_SIZE = 10 ** 6;
     const start = Number(range.replace(/\D/g, ""));

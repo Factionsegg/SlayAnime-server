@@ -4,7 +4,7 @@
   "description": "SlayAnime server side for watching animes",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon server.js"
   },
   "author": "Akrem Elouer",
   "license": "MIT",
